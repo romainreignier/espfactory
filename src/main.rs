@@ -226,7 +226,9 @@ fn run() -> anyhow::Result<()> {
 }
 
 fn run_monitor(monitor_args: MonitorArgs) -> anyhow::Result<()> {
-    match espflash::cli::serial_monitor(monitor_args, &espflash::cli::config::Config::default()) {
+    let config =
+        espflash::cli::config::Config::load().unwrap_or(espflash::cli::config::Config::default());
+    match espflash::cli::serial_monitor(monitor_args, &config) {
         Ok(_) => {}
         Err(err) => {
             error!("Running serial monitor returned an error: {err}");
