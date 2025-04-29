@@ -290,7 +290,9 @@ extra_1,  data, 0x06,            ,   20K,
 
         let image_names = zip
             .file_names()
-            .filter(|file_name| file_name.starts_with(Self::IMAGES_PREFIX))
+            .filter(|file_name| {
+                file_name.starts_with(Self::IMAGES_PREFIX) && !file_name.ends_with("/")
+            })
             .map(|file_name| file_name.to_string())
             .collect::<Vec<_>>();
 
@@ -327,7 +329,9 @@ extra_1,  data, 0x06,            ,   20K,
 
         let efuse_names = zip
             .file_names()
-            .filter(|file_name| file_name.starts_with(Self::EFUSES_PREFIX))
+            .filter(|file_name| {
+                file_name.starts_with(Self::EFUSES_PREFIX) && !file_name.ends_with("/")
+            })
             .map(|file_name| file_name.to_string())
             .collect::<Vec<_>>();
 
